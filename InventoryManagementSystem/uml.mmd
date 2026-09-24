@@ -1,0 +1,79 @@
+classDiagram
+Program --> InventoryService
+InventoryService --> Inventory
+InventoryService --> Product
+InventoryService --> ColoredText
+InventoryService --> FileHandlerJSON
+Inventory ..|> IInventory
+Product ..|> IProduct
+FileHandlerJSON --> ColoredText
+Inventory --> FilehandlerTxt
+Program --> ColoredText
+
+class Program {
+  +Main(): void
+  +MainMenu(): void
+}
+class InventoryService {
+  -inventory: Inventory
+  +AddProduct(): void
+  +DeleteProduct(): void
+  +ViewProducts(): void
+  +UpdateProduct(): void
+  +GenerateReport(): void
+  +SaveProducts(): void
+  +OpenProducts(): void
+}
+class IInventory <<interface>> {
+  +Products: List~Product~
+  +AddProduct(Product): void
+  +DeleteProduct(int): void
+  +GetAllProducts(): List~Product~
+  +GetProduct(int): Product?
+  +UpdateProduct(int, Product): void
+  +GetProducts(): List~Product~
+}
+class Inventory {
+  +Products: List~Product~
+  +AddProduct(Product): void
+  +DeleteProduct(int): void
+  +GetAllProducts(): List~Product~
+  +GetProduct(int): Product?
+  +UpdateProduct(int, Product): void
+  +GetProducts(): List~Product~
+  +GenerateReport(): void
+}
+class IProduct <<interface>> {
+  +Name: string
+  +Price: decimal
+  +ProductId: int
+  +Quantity: int
+  +DisplayProductInfo(): void
+}
+class Product {
+  -_NextProductId: int
+  +ProductId: int
+  +Name: string
+  +Quantity: int
+  +Price: decimal
+  +Product(): void
+  +Product(name: string, qty: int, price: decimal): void
+  +DisplayProductInfo(): void
+}
+class FileHandlerJSON {
+  -fileNameJSON: string
+  +Save(List~Product~): void
+  +OpenJSON(): List~Product~
+  +LoadJSON(): List~Product~
+  +CreateFirstTimeList(): List~Product~
+}
+class FilehandlerTxt {
+  -filePath: string
+  +SaveToFileTxt(List~string~): void
+}
+class ColoredText <<utility>> {
+  +WriteLine(string, ConsoleColor): void
+  +WriteLine(string): void
+  +Write(string, ConsoleColor): void
+  +Write(string): void
+}

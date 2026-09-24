@@ -37,6 +37,11 @@ namespace InventoryManagementSystem.Models
                 if (int.TryParse(qtyInput, out int qty))
                 {
                     newProduct.Quantity = qty;
+                    if (qty < 0)
+                    {
+                        ColoredText.WriteLine("Quantity cannot be negative. Please enter a valid Quantity:", ConsoleColor.Red);
+                        continue;
+                    }
                     break;
                 }
                 ColoredText.WriteLine("Invalid input. Please enter a numeric Quantity:", ConsoleColor.Red);
@@ -47,6 +52,11 @@ namespace InventoryManagementSystem.Models
                 string? priceInput = Console.ReadLine();
                 if (decimal.TryParse(priceInput, out decimal price))
                 {
+                    if (price < 0)
+                    {
+                        ColoredText.WriteLine("Price cannot be negative. Please enter a valid Price:", ConsoleColor.Red);
+                        continue;
+                    }
                     newProduct.Price = price;
                     break;
                 }
@@ -131,6 +141,11 @@ namespace InventoryManagementSystem.Models
                     string? priceInput = Console.ReadLine();
                     if (decimal.TryParse(priceInput, out decimal price))
                     {
+                        if (price < 0)
+                        {
+                            ColoredText.WriteLine("Price cannot be negative. Please enter a valid Price:", ConsoleColor.Red);
+                            continue;
+                        }
                         productToUpdate.Price = price;
                         break;
                     }

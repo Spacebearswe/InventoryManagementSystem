@@ -7,8 +7,6 @@ namespace InventoryManagementSystem.Utilities
 {
     public class FilehandlerTxt
     {
-        public FilehandlerTxt() { }
-        
         //Methods for writing to and reading from files.The files will be saved in the current directory.
         public string FileName { get; set; }
         public string Dir { get; set; }

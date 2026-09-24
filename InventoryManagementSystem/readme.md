@@ -114,38 +114,37 @@ class ColoredText <<utility>> {
 ```mermaid
 flowchart TD
   A["Start"] --> B["Program.Main() / MainMenu()"]
-  B --> C["Display Menu"]
-  C --> D["Read user input"]
+  B --> C["Read user input"]
+  
+  C -->|1 - Add| D["Inventory.AddProduct()"]
+  C -->|2 - Update| E["Inventory.UpdateProduct()"]
+  C -->|3 - Delete| F["Inventory.DeleteProduct()"]
+  C -->|4 - View All| G["Inventory.ViewProducts()"]
+  C -->|5 - Report| H["Inventory.GenerateReport()"]
+  C -->|6 - Load| I["Inventory.OpenProducts()"]
+  C -->|7 - Save| J["Inventory.SaveProducts()"]
+  C -->|0 - Quit| L["Exit"]
 
-  D -->|1 - Add| E["Inventory.AddProduct()"]
-  D -->|2 - Update| F["Inventory.UpdateProduct()"]
-  D -->|3 - Delete| G["Inventory.DeleteProduct()"]
-  D -->|4 - View All| H["Inventory.ViewProducts()"]
-  D -->|5 - Report| I["Inventory.GenerateReport()"]
-  D -->|6 - Load| J["Inventory.OpenProducts()"]
-  D -->|7 - Save| K["Inventory.SaveProducts()"]
-  D -->|0 - Quit| L["Exit"]
-
-  E --> M["Inventory.AddProduct(Product)"]
-  F --> N["Inventory.GetProduct(id) -> update -> Inventory.UpdateProduct(id, product)"]
-  G --> O["Inventory.DeleteProduct(id)"]
-  H --> P["Inventory.GetProducts() -> Product.DisplayProductInfo()"]
-  I --> Q["Inventory.GenerateReport()"]
-  J --> R["FileHandlerJSON.OpenJSON() -> returns List<Product>"]
-  R --> S["Inventory.AddProduct(...) (for each)"]
-  K --> T["FileHandlerJSON.Save(List<Product>)"]
+  D --> M["Inventory.AddProduct(Product)"]
+  E --> N["Inventory.GetProduct(id) -> update -> Inventory.UpdateProduct(id, product)"]
+  F --> O["Inventory.DeleteProduct(id)"]
+  G --> P["Inventory.GetProducts() -> Product.DisplayProductInfo()"]
+  H --> Q["Inventory.GenerateReport()"]
+  I --> R["FileHandlerJSON.OpenJSON() -> returns List<Product>"]
+  J --> S["Inventory.AddProduct(...) (for each)"]
+  J --> T["FileHandlerJSON.Save(List<Product>)"]
 
   Q --> U["Prompt: Save report?"]
   U -->|y| V["FilehandlerTxt.SaveToFileTxt(reportLines)"]
   U -->|n| W["Return to Menu"]
 
   L --> Z["End"]
-  S --> C
-  M --> C
-  N --> C
-  O --> C
-  P --> C
-  T --> C
-  V --> C
-  W --> C
+  S --> B
+  M --> B
+  N --> B
+  O --> B
+  P --> B
+  T --> B
+  V --> B
+  W --> B
 ```

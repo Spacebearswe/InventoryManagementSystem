@@ -17,6 +17,7 @@ Small console application for managing a simple product inventory (add, update, 
 - `Models/Inventory.cs` — inventory model implementing `IInventory`
 -  and containing UI/interaction logic calling the model.
 - `Models/Product.cs` — product model (serialized to JSON).
+- `Interfaces/IProduct.cs` — product interface.
 - `Interfaces/IInventory.cs` — inventory interface.
 - `Utilities/FileHandler.cs` — JSON save/load (writes `Inventory.json` to current directory).
 - `Utilities/ColoredText.cs` — console color helper.

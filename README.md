@@ -14,12 +14,12 @@ Small console application for managing a simple product inventory (add, update, 
 
 ## Project layout (key files)
 - `Program.cs` — application entry, console menu.
-- `Services/InventoryService.cs` — UI/interaction logic calling the model.
-- `Models/Inventory.cs` — inventory model implementing `IInventory`.
+- `Models/Inventory.cs` — inventory model implementing `IInventory`
+-  and containing UI/interaction logic calling the model.
 - `Models/Product.cs` — product model (serialized to JSON).
 - `Interfaces/IInventory.cs` — inventory interface.
-- `Utillities/FileHandler.cs` — JSON save/load (writes `Inventory.json` to current directory).
-- `Utillities/ColoredText.cs` — console color helper.
+- `Utilities/FileHandler.cs` — JSON save/load (writes `Inventory.json` to current directory).
+- `Utilities/ColoredText.cs` — console color helper.
 
 ## Persistence
 - Products are saved to `Inventory.json` in the application's current directory.
@@ -42,30 +42,19 @@ Small console application for managing a simple product inventory (add, update, 
 ## UML class diagram
 ```mermaid 
 classDiagram
-Program --> InventoryService
-InventoryService --> Inventory
-InventoryService --> ColoredText
-InventoryService --> FileHandlerJSON
+Program --> Inventory
 Inventory ..|> IInventory
 Product ..|> IProduct
 FileHandlerJSON --> ColoredText
-Inventory --> FilehandlerTxt
-Inventory --> IProduct
+Inventory --> FileHandlerTxt
+Inventory --> FileHandlerJSON
+Inventory --> ColoredText
+Inventory --> Product
 Program --> ColoredText
 
 class Program {
   +Main(): void
   +MainMenu(): void
-}
-class InventoryService {
-  -inventory: Inventory
-  +AddProduct(): void
-  +DeleteProduct(): void
-  +ViewProducts(): void
-  +UpdateProduct(): void
-  +GenerateReport(): void
-  +SaveProducts(): void
-  +OpenProducts(): void
 }
 class IInventory <<interface>> {
   +Products: List~Product~
@@ -80,11 +69,11 @@ class Inventory {
   +Products: List~Product~
   +AddProduct(Product): void
   +DeleteProduct(int): void
-  +GetAllProducts(): List~Product~
   +GetProduct(int): Product?
   +UpdateProduct(int, Product): void
   +GetProducts(): List~Product~
   +GenerateReport(): void
+  +ViewProducts(): void
 }
 class IProduct <<interface>> {
   +Name: string
@@ -110,7 +99,7 @@ class FileHandlerJSON {
   +LoadJSON(): List~Product~
   +CreateFirstTimeList(): List~Product~
 }
-class FilehandlerTxt {
+class FileHandlerTxt {
   -filePath: string
   +SaveToFileTxt(List~string~): void
 }
@@ -128,13 +117,13 @@ flowchart TD
   B --> C["Display Menu"]
   C --> D["Read user input"]
 
-  D -->|1 - Add| E["InventoryService.AddProduct()"]
-  D -->|2 - Update| F["InventoryService.UpdateProduct()"]
-  D -->|3 - Delete| G["InventoryService.DeleteProduct()"]
-  D -->|4 - View All| H["InventoryService.ViewProducts()"]
-  D -->|5 - Report| I["InventoryService.GenerateReport()"]
-  D -->|6 - Load| J["InventoryService.OpenProducts()"]
-  D -->|7 - Save| K["InventoryService.SaveProducts()"]
+  D -->|1 - Add| E["Inventory.AddProduct()"]
+  D -->|2 - Update| F["Inventory.UpdateProduct()"]
+  D -->|3 - Delete| G["Inventory.DeleteProduct()"]
+  D -->|4 - View All| H["Inventory.ViewProducts()"]
+  D -->|5 - Report| I["Inventory.GenerateReport()"]
+  D -->|6 - Load| J["Inventory.OpenProducts()"]
+  D -->|7 - Save| K["Inventory.SaveProducts()"]
   D -->|0 - Quit| L["Exit"]
 
   E --> M["Inventory.AddProduct(Product)"]
@@ -150,7 +139,7 @@ flowchart TD
   U -->|y| V["FilehandlerTxt.SaveToFileTxt(reportLines)"]
   U -->|n| W["Return to Menu"]
 
-   L --> Z["End"]
+  L --> Z["End"]
   S --> C
   M --> C
   N --> C
@@ -159,5 +148,4 @@ flowchart TD
   T --> C
   V --> C
   W --> C
-  
 ```

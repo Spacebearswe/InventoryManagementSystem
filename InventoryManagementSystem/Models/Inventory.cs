@@ -20,7 +20,16 @@ namespace InventoryManagementSystem.Models
         {
             Product newProduct = new Product();
             Console.WriteLine("Enter Product Name:");
-            newProduct.Name = Console.ReadLine() ?? string.Empty;
+            while (true)
+            {
+                string? nameInput = Console.ReadLine();
+                if (!string.IsNullOrEmpty(nameInput))
+                {
+                    newProduct.Name = nameInput;
+                    break;
+                }
+                ColoredText.WriteLine("Invalid input. Please enter a valid Name:", ConsoleColor.Red);
+            }
             Console.WriteLine("Enter Product Quantity:");
             while (true)
             {
@@ -87,12 +96,23 @@ namespace InventoryManagementSystem.Models
                     break;
                 ColoredText.WriteLine("Invalid input. Please enter a numeric Product ID:", ConsoleColor.Red);
             }
+
             var productToUpdate = Products.Find(p => p.ProductId == productId);
             if (productToUpdate != null)
             {
 
                 Console.WriteLine("Enter new Product Name:");
-                productToUpdate.Name = Console.ReadLine() ?? string.Empty;
+                while (true)
+                {
+                    string? nameInput = Console.ReadLine();
+                    if (!string.IsNullOrEmpty(nameInput))
+                    {
+                        productToUpdate.Name = nameInput;
+                        break;
+                    }
+                    ColoredText.WriteLine("Invalid input. Please enter a valid Name:", ConsoleColor.Red);
+                }
+
                 Console.WriteLine("Enter new Product Quantity:");
                 while (true)
                 {
@@ -104,6 +124,7 @@ namespace InventoryManagementSystem.Models
                     }
                     ColoredText.WriteLine("Invalid input. Please enter a numeric Quantity:", ConsoleColor.Red);
                 }
+
                 Console.WriteLine("Enter new Product Price:");
                 while (true)
                 {
@@ -115,6 +136,7 @@ namespace InventoryManagementSystem.Models
                     }
                     ColoredText.WriteLine("Invalid input. Please enter a numeric Price:", ConsoleColor.Red);
                 }
+
                 ColoredText.WriteLine("Product updated successfully!", ConsoleColor.Green);
 
                 var product = Products.Find(p => p.ProductId == productId);
@@ -153,8 +175,12 @@ namespace InventoryManagementSystem.Models
                 if (product != null)
                 {
                     Products.Remove(product);
+                    ColoredText.WriteLine("Product removed successfully!", ConsoleColor.Green);
                 }
-                ColoredText.WriteLine("Product removed successfully!", ConsoleColor.Green);
+                else
+                {
+                    ColoredText.WriteLine("Product not found.", ConsoleColor.Red);
+                }
             }
             else
                 ColoredText.WriteLine("Product not found.", ConsoleColor.Red);

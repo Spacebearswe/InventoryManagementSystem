@@ -1,4 +1,6 @@
-﻿namespace InventoryManagementSystem.Models
+﻿using InventoryManagementSystem.Models;
+
+namespace InventoryManagementSystem.Interfaces
 {
     public interface IInventory
     {
